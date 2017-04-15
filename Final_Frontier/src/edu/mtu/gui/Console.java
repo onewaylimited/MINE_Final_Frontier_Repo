@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 
 import javax.swing.JTextArea;
 
+/**
+ * Extended JTextArea for use as main console of the program
+ * @author Daniel Wagner
+ *
+ */
 @SuppressWarnings("serial")
 public class Console extends JTextArea {
 	

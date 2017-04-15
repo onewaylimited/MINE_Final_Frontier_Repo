@@ -21,7 +21,18 @@ import javax.swing.border.Border;
 
 /**
  * Creates and handles the Console panel
- * @author Dan
+ * This is separate from the GUIPanel based panels
+ * due to the fact that GridBagLayout is used instead of
+ * GridLayout for the panel. It also handles the button events.
+ * <p> It is very similar to the way the other GUI panels are 
+ * setup, and to better understand this Class, look at the 
+ * GUIPanel and GUIPanel extended classes.
+ * @author Daniel Wagner
+ * 
+ * @see GUIPanel
+ * @see ImagePanel
+ * @see WarnPanel
+ * @see InfoPanel
  *
  */
 public class ConsolePanel implements ActionListener{
