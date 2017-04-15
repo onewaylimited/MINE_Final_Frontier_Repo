@@ -61,6 +61,13 @@ public class RoverComm extends SwingWorker<Void, String>{
 //			e.printStackTrace();
 			log.display("Failed to connect to: " + serverIP.toString());
 		}
+		
+		try{
+//			loop();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public void init(String ip){
@@ -117,6 +124,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 		atomic = true;
 		if(out!= null){
 			out.print(comm);
+			log.display("ATOMIC: " + comm);
 		}
 		atomic = false;
 //		loop();
