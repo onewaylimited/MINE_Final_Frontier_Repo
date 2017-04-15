@@ -1,14 +1,18 @@
 package edu.mtu.gui;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.imageio.ImageIO;
@@ -28,7 +32,7 @@ import edu.mtu.network.RoverComm;
  * LAST UPDATED: 11/21/2106
  *
  */
-public class GUI{
+public class GUI implements ActionListener{
 
 	// Declare mainWindow, this is where GUI will reside and be displayed
 	private JFrame mainWindow;
@@ -42,7 +46,7 @@ public class GUI{
 	//private JPanel infoPanel, warnPanel, controlPanel;
 	// Declare borders
 	private Border testBorder;
-	
+
 	// Declare RoverComm for threading
 	private RoverComm roverComm;
 	private ConcurrentLinkedQueue<String> outQ = new ConcurrentLinkedQueue<String>();
@@ -125,6 +129,9 @@ public class GUI{
 		contentPane.revalidate();
 		contentPane.repaint();
 
+		// Add this as action listener to Control Panel buttons
+		addListeners(controlPanel.getComp());
+
 		// Set screen size and position
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		mainWindow.setBounds(screenSize.width / 2, 0, screenSize.width / 2, screenSize.height); 
@@ -166,6 +173,34 @@ public class GUI{
 		roverComm = new RoverComm(logPanel.getLog());
 		roverComm.setIP(ip);
 		roverComm.execute();
+	}
+
+	/**
+	 * Add ActionListeners to JButtons in component list
+	 * @param components ArrayList list of components
+	 * 			to add main GUI ActionListeners to
+	 */
+	private void addListeners(ArrayList<Component> components){
+		// Add action listeners to JButtons only
+		for(int i = 0; i < components.size(); i ++){
+			Component comp = components.get(i);
+			if(comp instanceof JButton){
+				JButton button = (JButton) comp;
+				button.addActionListener(this);
+			}
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() instanceof JButton){
+			JButton button = (JButton) e.getSource();
+			if(button.getText().equals("Shutdown")){
+				roverComm.sendAtomicComm("Shutdown");
+			}
+			logPanel.getLog().display(button.getText());
+		}
+
 	}
 
 }

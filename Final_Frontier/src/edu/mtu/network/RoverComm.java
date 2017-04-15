@@ -115,7 +115,9 @@ public class RoverComm extends SwingWorker<Void, String>{
 	
 	public void sendAtomicComm(String comm){
 		atomic = true;
-		out.print(comm);
+		if(out!= null){
+			out.print(comm);
+		}
 		atomic = false;
 //		loop();
 	}
@@ -135,15 +137,15 @@ public class RoverComm extends SwingWorker<Void, String>{
 	 */
 	@Override
 	protected void done(){
-		log.display("Network Thread Closed");
 		try {
 			if(socket != null){
 				socket.close();
+				log.display("Connection Terminated");
 			}
-			log.display("Connection Terminated");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		log.display("Network Thread Closed");
 	}
 
 }
