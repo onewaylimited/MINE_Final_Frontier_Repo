@@ -135,9 +135,9 @@ public class GUI implements ActionListener{
 		// Set screen size and position
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		mainWindow.setBounds(screenSize.width / 2, 0, screenSize.width / 2, screenSize.height); 
-
 		mainWindow.setVisible(true);
 
+		// Start Networking Thread
 		startComm("192.168.0.100");
 
 		// Render a png image based on content pane
@@ -170,7 +170,7 @@ public class GUI implements ActionListener{
 	 * @param ip
 	 */
 	private void startComm(String ip){
-		roverComm = new RoverComm(logPanel.getLog());
+		roverComm = new RoverComm(logPanel.getLog(), outQ);
 		roverComm.setIP(ip);
 		roverComm.execute();
 	}

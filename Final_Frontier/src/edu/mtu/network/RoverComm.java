@@ -26,8 +26,9 @@ public class RoverComm extends SwingWorker<Void, String>{
 	private Queue<String> outQ;  // Outgoing communications q
 	private Queue<String> inQ = new ConcurrentLinkedQueue<String>();
 	
-	public RoverComm(Console log){
+	public RoverComm(Console log, ConcurrentLinkedQueue<String> outQ){
 		this.log = log;
+		this.outQ = outQ;
 	}
 	
 	/**
@@ -59,11 +60,11 @@ public class RoverComm extends SwingWorker<Void, String>{
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (IOException e) {
 //			e.printStackTrace();
-			log.display("Failed to connect to: " + serverIP.toString());
+			publish("Failed to connect to: " + serverIP.toString());
 		}
 		
 		try{
-//			loop();
+			loop();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -77,10 +78,17 @@ public class RoverComm extends SwingWorker<Void, String>{
 	
 	public void loop() throws Exception{
 		while(!atomic){
+			System.out.println("Top Of Loop");
+			if(outQ.peek() != null && out != null){
+				String comm = outQ.peek();
+				out.println(outQ.poll());
+				publish("OUTGOING: " + comm);
+			}
 			String temp = in.readLine();
 			if(temp != null){
 				log.display(temp);
 			}
+			Thread.sleep(1000);
 		}
 	}
 	
@@ -124,7 +132,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 		atomic = true;
 		if(out!= null){
 			out.print(comm);
-			log.display("ATOMIC: " + comm);
+			publish("ATOMIC: " + comm);
 		}
 		atomic = false;
 //		loop();
