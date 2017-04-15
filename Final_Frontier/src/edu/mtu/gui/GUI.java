@@ -39,7 +39,6 @@ public class GUI{
 	// Declare JPanels
 	private JPanel contentPane;
 	private JPanel mainPanel;
-	//	private JPanel logPanel;
 	//private JPanel infoPanel, warnPanel, controlPanel;
 	// Declare borders
 	private Border testBorder;

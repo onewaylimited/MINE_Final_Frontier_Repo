@@ -31,6 +31,21 @@ public class RoverComm extends SwingWorker<Void, String>{
 	}
 	
 	/**
+	 * Setup and run the network connection
+	 * This method is used by SwingWorker to startup the new thread
+	 *  
+	 */
+	@Override
+	protected Void doInBackground() throws Exception {
+		System.out.println("Initializing Connection");
+		publish("Initializing Connection");
+		init();
+		
+		
+		return null;
+	}
+	
+	/**
 	 * Initializes a new server connection
 	 * This must be called whenever we change IPs 
 	 * so that the correct 
@@ -43,7 +58,8 @@ public class RoverComm extends SwingWorker<Void, String>{
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			log.display("Failed to connect to: " + serverIP.toString());
 		}
 	}
 	
@@ -104,15 +120,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 //		loop();
 	}
 
-	@Override
-	protected Void doInBackground() throws Exception {
-		System.out.println("Initializing Connection");
-		publish("Initializing Connection");
-		init();
-		
-		
-		return null;
-	}
+
 	
 	@Override
 	protected void process(List<String> strings){
@@ -129,7 +137,9 @@ public class RoverComm extends SwingWorker<Void, String>{
 	protected void done(){
 		log.display("Network Thread Closed");
 		try {
-			socket.close();
+			if(socket != null){
+				socket.close();
+			}
 			log.display("Connection Terminated");
 		} catch (IOException e) {
 			e.printStackTrace();

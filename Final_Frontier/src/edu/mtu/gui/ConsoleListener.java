@@ -29,6 +29,7 @@ public class ConsoleListener implements ActionListener {
 	 */
 	public ConsoleListener(Console log, ConcurrentLinkedQueue<String> outQ){
 		this.log = log;
+		this.outQ = outQ;
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class ConsoleListener implements ActionListener {
 	 * for sanity and debugging sake
 	 */
 	public void printOutQ(){
-		System.out.println("New addition to outQ: " + outQ.peek());
+		System.out.println("New addition to outQ: " + outQ.toString());
 	}
 
 }
