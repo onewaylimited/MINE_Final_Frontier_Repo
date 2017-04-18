@@ -86,6 +86,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 			}
 			String temp = in.readLine();
 			if(temp != null){
+				publish("INCOMING: " + temp);
 				log.display(temp);
 			}
 			Thread.sleep(1000);
