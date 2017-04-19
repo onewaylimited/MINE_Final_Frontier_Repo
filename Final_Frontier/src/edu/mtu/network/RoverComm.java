@@ -162,11 +162,13 @@ public class RoverComm extends SwingWorker<Void, String>{
 			if(socket != null){
 				socket.close();
 				log.display("Connection Terminated");
+				System.out.println("Connection Terminated");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		log.display("Network Thread Closed");
+		System.out.println("Network Thread Closed");
 	}
 
 }
