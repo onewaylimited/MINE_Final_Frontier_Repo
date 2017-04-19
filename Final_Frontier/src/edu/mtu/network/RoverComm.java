@@ -25,6 +25,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 	private Console log;
 	private Queue<String> outQ;  // Outgoing communications q
 	private Queue<String> inQ = new ConcurrentLinkedQueue<String>();
+	private boolean connected = false;
 	
 	public RoverComm(Console log, ConcurrentLinkedQueue<String> outQ){
 		this.log = log;
@@ -55,6 +56,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 		try {
 			socket = new Socket(serverIP, port);
 			System.out.println("Connection Established to " + serverIP.toString());
+			connected = true;
 			publish("Connection Established to " + serverIP.toString());
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -64,7 +66,9 @@ public class RoverComm extends SwingWorker<Void, String>{
 		}
 		
 		try{
-			loop();
+			if(connected){  // Check that we are connected to the server before initializing loop
+				loop();
+			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
