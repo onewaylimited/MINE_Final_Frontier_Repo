@@ -88,10 +88,12 @@ public class RoverComm extends SwingWorker<Void, String>{
 				out.println(outQ.poll());
 				publish("OUTGOING: " + comm);
 			}
+			else{
+				publish("OutQ empty or null!");
+			}
 			String temp = in.readLine();
 			if(temp != null){
 				publish("INCOMING: " + temp);
-				log.display(temp);
 			}
 			Thread.sleep(1000);
 		}

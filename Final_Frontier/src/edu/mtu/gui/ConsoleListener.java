@@ -47,6 +47,7 @@ public class ConsoleListener implements ActionListener {
 		printOutQ();
 		log.display(input);
 		log.repaint();
+		log.setCaretPosition(log.getDocument().getLength());
 	}
 	
 	/**

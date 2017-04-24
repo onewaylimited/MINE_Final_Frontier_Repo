@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+import javax.swing.text.DefaultCaret;
 
 /**
  * Creates and handles the Console panel
@@ -72,6 +73,8 @@ public class ConsolePanel implements ActionListener{
 				log.append("-- Begin Communications Log --\n");
 				log.append(LocalDateTime.now() + "\n");
 				log.setBorder(testBorder);
+				DefaultCaret caret = (DefaultCaret)log.getCaret();
+				caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 				
 				// Initialize JTextField
 				inputField = new JTextField(20);

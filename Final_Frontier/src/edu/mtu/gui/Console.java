@@ -23,5 +23,6 @@ public class Console extends JTextArea {
 		output += string;
 		output += "\n";
 		this.append(output);
+		this.setCaretPosition(this.getDocument().getLength());
 	}
 }

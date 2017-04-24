@@ -26,9 +26,6 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);  // Set built in led to be output pin
 
   bitParse(bitParseTest());
-  for(int i = sizeof(dataArr)/sizeof(int) - 1; i >= 0; i --){ 
-    Serial.println(dataArr[i]);
-  }
   
   // Attempt to set up Ethernet connection
   if((Ethernet.begin(mac)) == 0){
@@ -59,6 +56,7 @@ void loop() {
   char buffer[100];
   EthernetClient client = server.available();
   if(client){
+    Serial.println("Client Connected!\n");
     // Read bytes from the incoming client and write them
     // to any clients connected on the server
     while(valid){
