@@ -23,7 +23,7 @@ public class ControlPanel extends GuiPanel{
 
 		// Initialize control panel buttons
 		shutDownButton = new JButton("Shutdown");
-		conButton = new JButton("Conect/Reconnect");
+		conButton = new JButton("Connect/Reconnect");
 		mapButton =  new JButton("Controller Mappings");
 		bastionButton = new JButton("Bastion Button");
 

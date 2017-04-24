@@ -198,7 +198,9 @@ public class GUI implements ActionListener{
 			if(button.getText().equals("Shutdown")){
 				roverComm.sendAtomicComm("Shutdown");
 			}
-			logPanel.getLog().display(button.getText());
+			else if(button.getText().equals("Connect/Reconnect")){
+				startComm("192.168.0.100");
+			}
 		}
 
 	}
