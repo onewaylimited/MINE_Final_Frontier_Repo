@@ -82,20 +82,19 @@ public class RoverComm extends SwingWorker<Void, String>{
 	
 	public void loop() throws Exception{
 		while(!atomic){
-			System.out.println("Top Of Loop");
 			if(outQ.peek() != null && out != null){
 				String comm = outQ.peek();
 				out.println(outQ.poll());
 				publish("OUTGOING: " + comm);
+				Thread.sleep(50);
 			}
 			else{
-				publish("OutQ empty or null!");
+				//publish("OutQ empty or null!");
 			}
-			String temp = in.readLine();
-			if(temp != null){
-				publish("INCOMING: " + temp);
+			if(in.ready()){
+				publish("INCOMING: " + in.readLine());
 			}
-			Thread.sleep(1000);
+			Thread.sleep(10);
 		}
 	}
 	
