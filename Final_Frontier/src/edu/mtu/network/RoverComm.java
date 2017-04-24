@@ -92,7 +92,10 @@ public class RoverComm extends SwingWorker<Void, String>{
 				//publish("OutQ empty or null!");
 			}
 			if(in.ready()){
-				publish("INCOMING: " + in.readLine());
+				String temp = in.readLine();
+				inQ.add(temp);
+				System.out.println("New Addition to InQ: " + inQ.toString());
+				publish("INCOMING: " + temp);
 			}
 			Thread.sleep(10);
 		}
