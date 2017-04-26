@@ -21,6 +21,8 @@ EthernetServer server = EthernetServer(23); // Initiailize server on port 23
 
 int dataArr[8];
 
+unsigned long lastSent = 0;
+
 void setup() {
   Serial.begin(9600);
   pinMode(LED_BUILTIN, OUTPUT);  // Set built in led to be output pin
@@ -53,6 +55,10 @@ void loop() {
     Serial.println(Ethernet.localIP());
     printed = true;
   }
+  if((millis() - lastSent) > 3000){
+     sendPing();
+     lastSent = millis();
+  }
   char buffer[100];
   EthernetClient client = server.available();
   if (client) {
@@ -67,7 +73,7 @@ void loop() {
       pos ++;
     }
     printArray(buffer, pos);
-    writeArrayToClient(buffer, pos);
+    writeArrayToClient(buffer);
     delay(10);
   }
 }
@@ -79,11 +85,24 @@ void printArray(char array[], int len) {
   }
 }
 
-void writeArrayToClient(char array[], int len) {
-  int i;
-  for (i = 0; i < len; i ++) {
-    server.write(array[i]);
+void writeArrayToClient(char array[]) {
+  int i = 0;
+  while(true){
+    if(array[i] == '\r' || array[i] == '\n'){
+      server.write(array[i]);
+      break;
+    }
+    else{
+      server.write(array[i]);
+    }
+    i++;
   }
+    
+}
+
+void sendPing(){
+  char arr[] = {'P', 'i', 'n', 'g', '\n'};
+  writeArrayToClient(arr);
 }
 
 /**
