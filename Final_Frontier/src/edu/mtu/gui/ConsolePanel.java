@@ -28,9 +28,10 @@ import javax.swing.text.DefaultCaret;
  * <p> It is very similar to the way the other GUI panels are 
  * setup, and to better understand this Class, look at the 
  * GUIPanel and GUIPanel extended classes.
+ * <p>**PLEASE NOTE** This class passes along the outQ for outgoing communications
  * @author Daniel Wagner
  * 
- * @see GUIPanel
+ * @see GuiPanel
  * @see ImagePanel
  * @see WarnPanel
  * @see InfoPanel
@@ -50,7 +51,8 @@ public class ConsolePanel implements ActionListener{
 	private ConcurrentLinkedQueue<String> outQ;
 	
 	/**
-	 * Initialize the panel on start up
+	 * Constructor that creates a few required variables along with
+	 * running the init() method to setup the ConsolePanel
 	 */
 	public ConsolePanel(ConcurrentLinkedQueue<String> outQ){
 		this.outQ = outQ;
@@ -58,6 +60,10 @@ public class ConsolePanel implements ActionListener{
 		init();
 	}
 	
+	/**
+	 * Sets up and paints all of the required components for the console panel
+	 * to work. 
+	 */
 	public void init(){
 		// Initialize layout
 				logPanel.setLayout(new GridBagLayout());
@@ -135,26 +141,46 @@ public class ConsolePanel implements ActionListener{
 	}
 	
 	/**
-	 * Get components
-	 * @return
+	 * Get list of all components used by this panel.
+	 * @see GuiPanel
+	 * @return ArrayList of components 
 	 */
 	public ArrayList<Component> getComp(){
 		return components;
 	}
 	
+	/**
+	 * Return the Jpanel that is created by this class
+	 * @return JPanel 
+	 */
 	public JPanel getPanel(){
 		return logPanel;
 	}
 	
+	/**
+	 * Helper method to get an instance of the Console contained 
+	 * in this JPanel
+	 * @see Console
+	 * @return Console The console referred to as "log" throughout the program
+	 */
 	public Console getLog(){
 		return log;
 	}
 	
+	/**
+	 * Helper method to automatically refresh and revalidate
+	 * the logPanel
+	 * <p> <i>One line is less than two, im lazy ok?</i>
+	 */
 	public void refresh(){
 		logPanel.revalidate();
 		logPanel.repaint();
 	}
 
+	/**
+	 * ActionEvent handler for the reset and save log 
+	 * buttons contained in this panel
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JButton){
@@ -165,7 +191,7 @@ public class ConsolePanel implements ActionListener{
 				log.display("");
 			}
 			else if(button.getText().equals("Save Log")){
-
+				//TODO: Make this actually save the log
 			}
 			
 		}

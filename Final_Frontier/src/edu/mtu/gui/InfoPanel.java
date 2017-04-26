@@ -7,8 +7,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Initialize Information Panel 
- * @author Dan Wagner
+ * Initialize Information Panel. 
+ * <p> This is the panel that will display all of the information that
+ * will be displayed based on info from the rover. This is where we will
+ * add new panels for newer information we need in the future. 
+ * <p> Please note that currently there is a blank panel in this panel
+ * to be used as padding. If you need to add a new panel, replace 
+ * blankPane and update this JavaDoc. 
+ * @author Daniel Wagner
+ * @see GuiPanel
  *
  */
 public class InfoPanel extends GuiPanel {

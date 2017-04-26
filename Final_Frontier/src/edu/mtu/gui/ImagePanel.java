@@ -7,16 +7,30 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 
+/**
+ * This extended JPanel is intended to display an image
+ * that we will use to denote information coming from the rover.
+ * @author Daniel Wagner
+ *
+ */
 @SuppressWarnings("serial")
 public class ImagePanel extends JPanel{
 	
 	private Image image;
 	
+	/**
+	 * Image panel to be used as image
+	 * @param image .png image to be displayed in this panel
+	 */
 	public ImagePanel(Image image){
 		setImage(image);
 		setLayout(new BorderLayout());
 	}
 	
+	/**
+	 * If we decide to use this as a basic JPanel for
+	 * sake of simplicity in other classes.
+	 */
 	public ImagePanel(){
 		super();
 	}
@@ -31,6 +45,10 @@ public class ImagePanel extends JPanel{
 		repaint();
 	}
 	
+	/**
+	 * Overridden paintComponent method to 
+	 * resize the image to take up the maximum amount of space in the JPanel
+	 */
 	@Override 
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);

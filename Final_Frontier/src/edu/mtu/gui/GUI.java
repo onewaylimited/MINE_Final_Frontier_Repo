@@ -23,13 +23,15 @@ import javax.swing.border.Border;
 import edu.mtu.network.RoverComm;
 
 /**
- * DESC: 	Initialize the GUI at startup
- * NOTES: 	You should only need to call this at startup, since we are creating and populating
- * 			the GUI for the operator. This class does not handle GUI events, only the creation 
- * 			of all the objects required for the GUI.
+ * Initialize the GUI at startup
+ * <p>You should only need to call this at startup, since we are creating and populating
+ * the GUI for the operator. This GUI class is the backbone of our program, spawning 
+ * all of the other processes and classes. 
+ * <p>Keep in mind that all GUI elements are 
+ * running in the EDT, and will need to be modified by a SwingWorker thread 
+ * to prevent the GUI from hanging
  * 
  * @author Dan Wagner
- * LAST UPDATED: 11/21/2106
  *
  */
 public class GUI implements ActionListener{
@@ -60,8 +62,18 @@ public class GUI implements ActionListener{
 
 
 	/**
-	 * Constructor for MainWindow 
+	 * Constructor for the GUI, this initializes the main window along with
+	 * the content pane. It also sets the parameters for the JFrame such as its
+	 * title, DefaultCloseOperation and its content pane.
+	 * <p>The reason we do not call init() from this constructor
+	 * is that we want to have control over when this runs when creating the 
+	 * GUI in the Init class.
 	 * 
+	 * @see Init
+	 * @see InfoPanel
+	 * @see WarnPanel
+	 * @see ControlPanel
+	 * @see ConsolePanel
 	 */
 	GUI() {
 
@@ -88,7 +100,9 @@ public class GUI implements ActionListener{
 	}
 
 	/**
-	 * Initialize the GUI
+	 * Construct the basic layout of the GUI, placing all of the JPanels in their correct places. 
+	 * <p>This also adds the button listeners to the ControlPanel buttons since it is more convenient
+	 * to handle those events in this class.
 	 */
 	public void init() {
 
@@ -146,6 +160,9 @@ public class GUI implements ActionListener{
 
 	/**
 	 * Export given JPanel to a .png
+	 * These are saved by default in the 
+	 * root folder, this will be changed later if 
+	 * need be.
 	 * @param panel JPanel to export
 	 */
 	private void printFrame(JPanel panel){
@@ -168,6 +185,7 @@ public class GUI implements ActionListener{
 	/**
 	 * Create a new thread for rover communications
 	 * @param ip String representing IP to point our roverComm too 
+	 * @see RoverComm
 	 */
 	private void startComm(String ip){
 		roverComm = new RoverComm(logPanel.getLog(), outQ);
@@ -191,6 +209,10 @@ public class GUI implements ActionListener{
 		}
 	}
 
+	/**
+	 * ActionEvent handler for the ContolPanel JButtons.
+	 * @see ControlPanel
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JButton){

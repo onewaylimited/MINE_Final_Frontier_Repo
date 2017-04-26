@@ -7,9 +7,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JTextField;
 
 /**
- * Handles JTextField that is used as input for console
+ * Handles JTextField that is used as input for console along with
+ * adding input commands to the outQ.
+ * The outQ is thread safe and is used to send out all of our 
+ * communications.
+ * 
+ * <p>**PLEASE NOTE** This class passes along the outQ for outgoing communications
  * @author Daniel Wagner
  *
+ * @see RoverComm
  */
 public class ConsoleListener implements ActionListener {
 	
@@ -20,7 +26,7 @@ public class ConsoleListener implements ActionListener {
 	
 	/**
 	 * @param log Console where our input/output is displayed
-	 * @param outQ ConcurrentLinkedQueue<String> Thread safe queue 
+	 * @param outQ ConcurrentLinkedQueue"String" Thread safe queue 
 	 * 			for adding our outputs to. This output queue is shared with
 	 * 			the RoverComm class which sends and receives messages from 
 	 * 			the Arduino

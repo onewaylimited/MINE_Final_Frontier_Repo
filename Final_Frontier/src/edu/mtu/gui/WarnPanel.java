@@ -6,6 +6,12 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This is the warning panel which will display all of the warnings we receive from the
+ * rover. This can be expanded upon later for any extra warnings we may need.
+ * @author Daniel Wagner
+ * @see GuiPanel
+ */
 public class WarnPanel extends GuiPanel{
 
 	private JPanel warnPane;

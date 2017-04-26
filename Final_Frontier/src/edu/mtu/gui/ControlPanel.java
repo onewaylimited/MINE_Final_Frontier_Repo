@@ -7,6 +7,16 @@ import java.awt.image.ColorConvertOp;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * Create and populate the ControlPanel for the GUI. This panel
+ * is the one with all of the buttons intended to be used by the operator
+ * (besides the xbox controller)
+ * <p> This class extends GuiPanel, check out that doc for more complete information on 
+ * this class and its methods
+ * @author Daniel Wagner
+ *
+ * @see GuiPanel
+ */
 public class ControlPanel extends GuiPanel{
 
 	private JPanel controlPane;

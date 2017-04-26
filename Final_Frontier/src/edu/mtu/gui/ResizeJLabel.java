@@ -10,17 +10,33 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JLabel;
 
+/**
+ * Automatically resizeable JLabel. This should guarantee that the
+ * label occupies the most space possible in its current JPanel. 
+ * @author Daniel Wagner
+ *
+ */
 @SuppressWarnings("serial")
 public class ResizeJLabel extends JLabel{
 	public static final int MIN_FONT_SIZE=3;
 	public static final int MAX_FONT_SIZE=240;
 	Graphics g;
 
+	/**
+	 * Run the super constructor to display the text, and then
+	 * initialize the label.
+	 * @param text String we wish to display in the label
+	 */
 	public ResizeJLabel(String text) {
 		super(text);
 		init();
 	}
-
+	
+	/**
+	 * Add a component listener to the JLabel itself to run
+	 * the adaptLabelFont method automatically when the component
+	 * is resized.
+	 */
 	protected void init() {
 		addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
@@ -29,6 +45,11 @@ public class ResizeJLabel extends JLabel{
 		});
 	}
 
+	/**
+	 * Change the labels font to take up as much of the
+	 * JPanel as possible
+	 * @param l JLabel to resize 
+	 */
 	protected void adaptLabelFont(JLabel l) {
 		if (g==null) {
 			return;
@@ -53,6 +74,12 @@ public class ResizeJLabel extends JLabel{
 		repaint();
 	}
 
+	/**
+	 * Get the text size of the label
+	 * @param l JLabel to check
+	 * @param f Font to use on text
+	 * @return Dimension describing bounding box of JLabel size. 
+	 */
 	private Dimension getTextSize(JLabel l, Font f) {
 		Dimension size=new Dimension();
 		g.setFont(f);
@@ -63,6 +90,10 @@ public class ResizeJLabel extends JLabel{
 		return size;
 	}
 
+	/**
+	 * Overridden paintComponent method to paint the text correctly
+	 */
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.g=g;
