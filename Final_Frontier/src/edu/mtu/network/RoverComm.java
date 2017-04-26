@@ -15,7 +15,7 @@ import javax.swing.SwingWorker;
 import edu.mtu.gui.Console;
 
 public class RoverComm extends SwingWorker<Void, String>{
-	
+
 	private InetAddress serverIP;
 	private int port = 23;
 	private boolean atomic = false;
@@ -26,12 +26,12 @@ public class RoverComm extends SwingWorker<Void, String>{
 	private Queue<String> outQ;  // Outgoing communications q
 	private Queue<String> inQ = new ConcurrentLinkedQueue<String>();
 	private boolean connected = false;
-	
+
 	public RoverComm(Console log, ConcurrentLinkedQueue<String> outQ){
 		this.log = log;
 		this.outQ = outQ;
 	}
-	
+
 	/**
 	 * Setup and run the network connection
 	 * This method is used by SwingWorker to startup the new thread
@@ -42,11 +42,11 @@ public class RoverComm extends SwingWorker<Void, String>{
 		System.out.println("Initializing Connection");
 		publish("Initializing Connection");
 		init();
-		
-		
+
+
 		return null;
 	}
-	
+
 	/**
 	 * Initializes a new server connection
 	 * This must be called whenever we change IPs 
@@ -61,10 +61,10 @@ public class RoverComm extends SwingWorker<Void, String>{
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (IOException e) {
-//			e.printStackTrace();
+			//			e.printStackTrace();
 			publish("Failed to connect to: " + serverIP.toString());
 		}
-		
+
 		try{
 			if(connected){  // Check that we are connected to the server before initializing loop
 				loop();
@@ -74,13 +74,14 @@ public class RoverComm extends SwingWorker<Void, String>{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void init(String ip){
 		setIP(ip);
 		init();
 	}
-	
-	public void loop() throws Exception{
+
+	public void loop(){
+		try{
 		while(!atomic){
 			if(outQ.peek() != null && out != null){
 				String comm = outQ.peek();
@@ -99,8 +100,12 @@ public class RoverComm extends SwingWorker<Void, String>{
 			}
 			Thread.sleep(10);
 		}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
-	
+
 	/**
 	 * Do nothing while GUI starts up
 	 */
@@ -114,7 +119,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 			}
 		}
 	}
-	
+
 	/**
 	 * Set the IP address for the server
 	 * @param ip String representing the IP address 
@@ -128,15 +133,22 @@ public class RoverComm extends SwingWorker<Void, String>{
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Add a communication to the queue
-	 * @param comm
+	 * @param comm String: Communication to add to the outgoing queue
+	 * @deprecated
 	 */
 	public void sendComm(String comm){
 		outQ.add(comm);
 	}
-	
+
+	/**
+	 * Called from the EDT to send an immediate communication to the 
+	 * rover. This is only to be called in the cases of an emergency stop, 
+	 * loss of connection, or some other error.
+	 * @param comm String: Emergency command to send to the rover
+	 */
 	public void sendAtomicComm(String comm){
 		atomic = true;
 		if(out!= null){
@@ -144,11 +156,11 @@ public class RoverComm extends SwingWorker<Void, String>{
 			publish("ATOMIC: " + comm);
 		}
 		atomic = false;
-//		loop();
+		//		loop();
 	}
 
 
-	
+
 	@Override
 	protected void process(List<String> strings){
 		String comm = strings.get(strings.size()-1);
@@ -156,7 +168,7 @@ public class RoverComm extends SwingWorker<Void, String>{
 			log.display(comm);
 		}
 	}
-	
+
 	/**
 	 * Inform the EDT that the connection is terminated
 	 */

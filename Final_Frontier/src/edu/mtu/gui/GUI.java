@@ -167,7 +167,7 @@ public class GUI implements ActionListener{
 
 	/**
 	 * Create a new thread for rover communications
-	 * @param ip
+	 * @param ip String representing IP to point our roverComm too 
 	 */
 	private void startComm(String ip){
 		roverComm = new RoverComm(logPanel.getLog(), outQ);
@@ -199,7 +199,14 @@ public class GUI implements ActionListener{
 				roverComm.sendAtomicComm("Shutdown");
 			}
 			else if(button.getText().equals("Connect/Reconnect")){
-				startComm("192.168.0.100");
+				if(roverComm != null){
+					roverComm.cancel(true);  // Close the previous roverComm thread
+				}
+				// Start a new roverComm thread. This is done if we need
+				// to reconnect with the rover or reset the connection
+				if(roverComm.isCancelled()){
+					startComm("192.168.0.100");
+				}
 			}
 		}
 
