@@ -52,27 +52,27 @@ public class InfoPanel extends GuiPanel {
 		JLabel blankLabel = new JLabel("");
 
 		// Initialize sub-panels
-		dirPane = new ImagePanel();  // Direction panel
+		dirPane = new DisplayPanel();  // Direction panel
 		dirPane.setBackground(Color.MAGENTA);
 		dirPane.add(dirLabel);  // TODO: Remove Place holder labels
 
-		velPane = new ImagePanel();  // Velocity panel
+		velPane = new DisplayPanel();  // Velocity panel
 		velPane.setBackground(Color.white);
 		velPane.add(velLabel);  // TODO: Remove Place holder labels
 
-		cBatPane = new ImagePanel();  // Control Battery panel
+		cBatPane = new DisplayPanel();  // Control Battery panel
 		cBatPane.setBackground(Color.blue);
 		cBatPane.add(cBatLabel);  // TODO: Remove Place holder labels
 
-		rBatPane = new ImagePanel();  // Rover Battery panel
+		rBatPane = new DisplayPanel();  // Rover Battery panel
 		rBatPane.setBackground(Color.green);
 		rBatPane.add(rBatLabel);  // TODO: Remove Place holder labels
 
-		conStrPane = new ImagePanel();  // connection Strength panel
+		conStrPane = new DisplayPanel();  // connection Strength panel
 		conStrPane.setBackground(Color.cyan);
 		conStrPane.add(conStrLabel);  // TODO: Remove Place holder labels
 
-		blankPane = new ImagePanel();  // Blank spacer panel
+		blankPane = new DisplayPanel();  // Blank spacer panel
 		blankPane.setBackground(Color.gray);
 		blankPane.add(blankLabel);  // TODO: Remove Place holder labels
 

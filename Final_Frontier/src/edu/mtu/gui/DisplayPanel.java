@@ -3,6 +3,8 @@ package edu.mtu.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.JPanel;
@@ -14,25 +16,69 @@ import javax.swing.JPanel;
  *
  */
 @SuppressWarnings("serial")
-public class ImagePanel extends JPanel{
+public class DisplayPanel extends JPanel{
+	
+	public enum Type{
+		LABEL, IMAGE, BLANK
+	}
 	
 	private Image image;
+	private GridBagConstraints gc = new GridBagConstraints();
+	private GridBagLayout layout = new GridBagLayout();
 	
-	/**
-	 * Image panel to be used as image
-	 * @param image .png image to be displayed in this panel
-	 */
-	public ImagePanel(Image image){
-		setImage(image);
-		setLayout(new BorderLayout());
+//	/**
+//	 * Image panel to be used as image
+//	 * @param image .png image to be displayed in this panel
+//	 */
+//	public DisplayPanel(Image image){
+//		setImage(image);
+//		setLayout(new BorderLayout());
+//	}
+	
+	public DisplayPanel(Type type){
+		switch(type){
+		case LABEL:
+			labelPanel();
+			break;
+		case BLANK:
+			blankPanel();
+			break;
+		case IMAGE:
+			imagePanel();
+			break;
+		default:
+			break;
+				
+		}
 	}
 	
 	/**
 	 * If we decide to use this as a basic JPanel for
 	 * sake of simplicity in other classes.
 	 */
-	public ImagePanel(){
+	public DisplayPanel(){
 		super();
+	}
+	
+	/**
+	 * 
+	 */
+	private void labelPanel(){
+		
+	}
+	
+	/**
+	 * 
+	 */
+	private void imagePanel(){
+		
+	}
+	
+	/**
+	 * 
+	 */
+	private void blankPanel(){
+		
 	}
 	
 	/**

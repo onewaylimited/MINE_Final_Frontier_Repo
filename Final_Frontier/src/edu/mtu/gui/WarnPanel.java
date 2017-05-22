@@ -42,15 +42,15 @@ public class WarnPanel extends GuiPanel{
 		components.add(fuseLabel);
 
 		// Initialize panes
-		conPane = new ImagePanel();
+		conPane = new DisplayPanel();
 		conPane.setBackground(Color.red);
 		conPane.add(conLabel);  // TODO: Remove Place holder labels
 
-		powerPane = new ImagePanel();
+		powerPane = new DisplayPanel();
 		powerPane.setBackground(Color.orange);
 		powerPane.add(powerLabel);  // TODO: Remove Place holder labels
 
-		fusePane = new ImagePanel();
+		fusePane = new DisplayPanel();
 		fusePane.setBackground(Color.yellow);
 		fusePane.add(fuseLabel);  // TODO: Remove Place holder labels
 

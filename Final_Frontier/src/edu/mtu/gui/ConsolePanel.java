@@ -32,7 +32,7 @@ import javax.swing.text.DefaultCaret;
  * @author Daniel Wagner
  * 
  * @see GuiPanel
- * @see ImagePanel
+ * @see DisplayPanel
  * @see WarnPanel
  * @see InfoPanel
  *
