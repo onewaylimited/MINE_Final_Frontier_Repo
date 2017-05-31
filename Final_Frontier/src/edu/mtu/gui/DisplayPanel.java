@@ -2,6 +2,7 @@ package edu.mtu.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -31,6 +32,8 @@ public class DisplayPanel extends JPanel{
 	}
 
 	
+	private boolean created;
+	private Font labelFont;
 	private Image image;
 	private JLabel label;
 	private Type type;
@@ -79,8 +82,12 @@ public class DisplayPanel extends JPanel{
 		// Set JPanel layout
 		this.setLayout(layout);
 		
+		// Set font
+		labelFont = new Font("Ariel", Font.BOLD, 18);
+		
 		// Create JLabel
-		label = new JLabel();
+		label = new ResizeJLabel(string);
+		label.setFont(labelFont);
 		
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.fill = GridBagConstraints.BOTH;
@@ -88,8 +95,7 @@ public class DisplayPanel extends JPanel{
 		gc.gridy = 0;
 		this.add(label, gc);
 		
-		// Set Label text
-		setText(string);
+		repaint();
 	}
 	
 	/**
@@ -117,6 +123,7 @@ public class DisplayPanel extends JPanel{
 		if(type.equals(Type.LABEL)){
 			label.setText(string);
 		}
+		else return;
 		repaint();
 	}
 	

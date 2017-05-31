@@ -41,13 +41,13 @@ public class WarnPanel extends GuiPanel{
 
 		// Initialize panes
 		conPane = new DisplayPanel(Type.LABEL, conString);
-		conPane.setBackground(Color.red);
+		conPane.setBackground(Color.RED);
 
 		powerPane = new DisplayPanel(Type.LABEL, powerString);
-		powerPane.setBackground(Color.orange);
+		powerPane.setBackground(Color.RED);
 
 		fusePane = new DisplayPanel(Type.LABEL, fuseString);
-		fusePane.setBackground(Color.yellow);
+		fusePane.setBackground(Color.RED);
 
 		// Add components to warnPanel
 		warnPane.add(conPane);

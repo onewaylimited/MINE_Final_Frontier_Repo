@@ -56,22 +56,16 @@ public class InfoPanel extends GuiPanel {
 
 		// Initialize sub-panels
 		dirPane = new DisplayPanel(Type.LABEL, dirString);  // Direction panel
-		dirPane.setBackground(Color.MAGENTA);
 		
 		velPane = new DisplayPanel(Type.LABEL, velString);  // Velocity panel
-		velPane.setBackground(Color.white);
 
 		cBatPane = new DisplayPanel(Type.LABEL, cBatString);  // Control Battery panel
-		cBatPane.setBackground(Color.blue);
 
 		rBatPane = new DisplayPanel(Type.LABEL, rBatString);  // Rover Battery panel
-		rBatPane.setBackground(Color.green);
 
 		conStrPane = new DisplayPanel(Type.LABEL, conStrString);  // connection Strength panel
-		conStrPane.setBackground(Color.cyan);
 
 		blankPane = new DisplayPanel();  // Blank spacer panel
-		blankPane.setBackground(Color.gray);
 
 		// Add components to infoPanel
 		infoPane.add(dirPane);  // grid 1,1
