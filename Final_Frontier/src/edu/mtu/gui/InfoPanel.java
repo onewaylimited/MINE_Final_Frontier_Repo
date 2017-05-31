@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.mtu.gui.DisplayPanel.Type;
+
 /**
  * Initialize Information Panel. 
  * <p> This is the panel that will display all of the information that
@@ -22,6 +24,7 @@ public class InfoPanel extends GuiPanel {
 
 	private JPanel infoPane;
 	private JPanel dirPane, velPane, cBatPane, rBatPane, conStrPane, blankPane;
+	private String dirString, velString, cBatString, rBatString, conStrString;
 
 	/**
 	 * Initialize infoPane
@@ -44,37 +47,31 @@ public class InfoPanel extends GuiPanel {
 		panels.add(blankPane);
 
 		// Initialize JLabels
-		JLabel dirLabel = new JLabel("Heading (N,S,E,W)");
-		JLabel velLabel = new JLabel("Current Velocity");
-		JLabel cBatLabel = new JLabel("Control Systems Battery Life");
-		JLabel rBatLabel = new JLabel("Rover Battery Life");
-		JLabel conStrLabel = new JLabel("Connection Strength");
-		JLabel blankLabel = new JLabel("");
+		dirString = "Heading (N,S,E,W)";
+		velString = "Current Velocity";
+		cBatString = "Control Systems Battery Life";
+		rBatString = "Rover Battery Life";
+		conStrString = "Connection Strength";
+
 
 		// Initialize sub-panels
-		dirPane = new DisplayPanel();  // Direction panel
+		dirPane = new DisplayPanel(Type.LABEL, dirString);  // Direction panel
 		dirPane.setBackground(Color.MAGENTA);
-		dirPane.add(dirLabel);  // TODO: Remove Place holder labels
-
-		velPane = new DisplayPanel();  // Velocity panel
+		
+		velPane = new DisplayPanel(Type.LABEL, velString);  // Velocity panel
 		velPane.setBackground(Color.white);
-		velPane.add(velLabel);  // TODO: Remove Place holder labels
 
-		cBatPane = new DisplayPanel();  // Control Battery panel
+		cBatPane = new DisplayPanel(Type.LABEL, cBatString);  // Control Battery panel
 		cBatPane.setBackground(Color.blue);
-		cBatPane.add(cBatLabel);  // TODO: Remove Place holder labels
 
-		rBatPane = new DisplayPanel();  // Rover Battery panel
+		rBatPane = new DisplayPanel(Type.LABEL, rBatString);  // Rover Battery panel
 		rBatPane.setBackground(Color.green);
-		rBatPane.add(rBatLabel);  // TODO: Remove Place holder labels
 
-		conStrPane = new DisplayPanel();  // connection Strength panel
+		conStrPane = new DisplayPanel(Type.LABEL, conStrString);  // connection Strength panel
 		conStrPane.setBackground(Color.cyan);
-		conStrPane.add(conStrLabel);  // TODO: Remove Place holder labels
 
 		blankPane = new DisplayPanel();  // Blank spacer panel
 		blankPane.setBackground(Color.gray);
-		blankPane.add(blankLabel);  // TODO: Remove Place holder labels
 
 		// Add components to infoPanel
 		infoPane.add(dirPane);  // grid 1,1

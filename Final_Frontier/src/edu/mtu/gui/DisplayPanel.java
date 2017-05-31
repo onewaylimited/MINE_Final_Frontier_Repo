@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -18,11 +19,21 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class DisplayPanel extends JPanel{
 	
+	/**
+	 * Enum we can use to 
+	 * @author Dan
+	 *
+	 */
 	public enum Type{
-		LABEL, IMAGE, BLANK
+		LABEL, 
+		IMAGE, 
+		BLANK
 	}
+
 	
 	private Image image;
+	private JLabel label;
+	private Type type;
 	private GridBagConstraints gc = new GridBagConstraints();
 	private GridBagLayout layout = new GridBagLayout();
 	
@@ -35,10 +46,11 @@ public class DisplayPanel extends JPanel{
 //		setLayout(new BorderLayout());
 //	}
 	
-	public DisplayPanel(Type type){
-		switch(type){
+	public DisplayPanel(Type type, String label){
+		this.type = type;
+		switch(this.type){
 		case LABEL:
-			labelPanel();
+			labelPanel(label);
 			break;
 		case BLANK:
 			blankPanel();
@@ -53,8 +65,8 @@ public class DisplayPanel extends JPanel{
 	}
 	
 	/**
-	 * If we decide to use this as a basic JPanel for
-	 * sake of simplicity in other classes.
+	 * For if we decide to use this as a basic JPanel for
+	 * sake of consistency across other classes.
 	 */
 	public DisplayPanel(){
 		super();
@@ -63,8 +75,21 @@ public class DisplayPanel extends JPanel{
 	/**
 	 * 
 	 */
-	private void labelPanel(){
+	private void labelPanel(String string){
+		// Set JPanel layout
+		this.setLayout(layout);
 		
+		// Create JLabel
+		label = new JLabel();
+		
+		gc.anchor = GridBagConstraints.CENTER;
+		gc.fill = GridBagConstraints.BOTH;
+		gc.gridx = 0;
+		gc.gridy = 0;
+		this.add(label, gc);
+		
+		// Set Label text
+		setText(string);
 	}
 	
 	/**
@@ -79,6 +104,20 @@ public class DisplayPanel extends JPanel{
 	 */
 	private void blankPanel(){
 		
+	}
+	
+	/**
+	 * Update the text of our JLabel
+	 *<p> To be used when this is set to a LABEL Panel
+	 * We repaint at the end to refresh the labels text
+	 * 
+	 * @param string
+	 */
+	public void setText(String string){
+		if(type.equals(Type.LABEL)){
+			label.setText(string);
+		}
+		repaint();
 	}
 	
 	/**

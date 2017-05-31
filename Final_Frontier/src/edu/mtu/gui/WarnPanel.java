@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.mtu.gui.DisplayPanel.Type;
+
 /**
  * This is the warning panel which will display all of the warnings we receive from the
  * rover. This can be expanded upon later for any extra warnings we may need.
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
 public class WarnPanel extends GuiPanel{
 
 	private JPanel warnPane;
+	private String conString, powerString, fuseString;
 	private JPanel conPane, powerPane, fusePane;
 
 	@Override
@@ -31,28 +34,20 @@ public class WarnPanel extends GuiPanel{
 		panels.add(powerPane);
 		panels.add(fusePane);
 		
-		// Initialize ResizeJLabels
-		JLabel conLabel = new ResizeJLabel("Loss of Connection!");
-		JLabel powerLabel = new ResizeJLabel("Power Loss!");
-		JLabel fuseLabel = new ResizeJLabel("Blown Fuse!");
-		
-		// Add Components to list
-		components.add(conLabel);
-		components.add(powerLabel);
-		components.add(fuseLabel);
+		// Set strings
+		conString = "Loss of Connection";
+		powerString = "Loss of Power";
+		fuseString = "Blown Fuse";
 
 		// Initialize panes
-		conPane = new DisplayPanel();
+		conPane = new DisplayPanel(Type.LABEL, conString);
 		conPane.setBackground(Color.red);
-		conPane.add(conLabel);  // TODO: Remove Place holder labels
 
-		powerPane = new DisplayPanel();
+		powerPane = new DisplayPanel(Type.LABEL, powerString);
 		powerPane.setBackground(Color.orange);
-		powerPane.add(powerLabel);  // TODO: Remove Place holder labels
 
-		fusePane = new DisplayPanel();
+		fusePane = new DisplayPanel(Type.LABEL, fuseString);
 		fusePane.setBackground(Color.yellow);
-		fusePane.add(fuseLabel);  // TODO: Remove Place holder labels
 
 		// Add components to warnPanel
 		warnPane.add(conPane);
