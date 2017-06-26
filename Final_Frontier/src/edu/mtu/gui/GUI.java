@@ -219,15 +219,18 @@ public class GUI implements ActionListener{
 			JButton button = (JButton) e.getSource();
 			if(button.getText().equals("Shutdown")){
 				roverComm.sendAtomicComm("Shutdown");
+				logPanel.getLog().display("SHUTDOWN!");
 			}
 			else if(button.getText().equals("Connect/Reconnect")){
+				System.out.println("Connect/Reconnect Pressed");
 				if(roverComm != null){
 					roverComm.cancel(true);  // Close the previous roverComm thread
 				}
 				// Start a new roverComm thread. This is done if we need
 				// to reconnect with the rover or reset the connection
-				if(roverComm.isCancelled()){
+				if(roverComm.isCancelled() || roverComm.isDone()){
 					startComm("192.168.0.100");
+					logPanel.getLog().display("Reconnecting...");
 				}
 			}
 		}

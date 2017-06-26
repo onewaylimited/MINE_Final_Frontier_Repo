@@ -111,24 +111,25 @@ public class RoverComm extends SwingWorker<Void, String>{
 	 */
 	public void loop(){
 		try{
-		while(!atomic){
-			if(outQ.peek() != null && out != null){
-				String comm = outQ.peek();
-				out.println(outQ.poll());
-				publish("OUTGOING: " + comm);
-				Thread.sleep(50);
+
+			while(!atomic && isCancelled() == false){
+				if(outQ.peek() != null && out != null){
+					String comm = outQ.peek();
+					out.println(outQ.poll());
+					publish("OUTGOING: " + comm);
+					Thread.sleep(50);
+				}
+				else{
+					//publish("OutQ empty or null!");
+				}
+				if(in.ready()){
+					String temp = in.readLine();
+					inQ.add(temp);
+					System.out.println("New Addition to InQ: " + inQ.toString());
+					publish("INCOMING: " + temp);
+				}
+				Thread.sleep(10);
 			}
-			else{
-				//publish("OutQ empty or null!");
-			}
-			if(in.ready()){
-				String temp = in.readLine();
-				inQ.add(temp);
-				System.out.println("New Addition to InQ: " + inQ.toString());
-				publish("INCOMING: " + temp);
-			}
-			Thread.sleep(10);
-		}
 		}
 		catch(Exception e){
 			e.printStackTrace();

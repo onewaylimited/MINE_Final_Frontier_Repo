@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 /**
  * This extended JPanel is intended to display an image
  * that we will use to denote information coming from the rover.
+ * It also acts as a catch all for any other panels we implement for a 
+ * sake of consistency.
  * @author Daniel Wagner
  *
  */
