@@ -112,7 +112,11 @@ public class RoverComm extends SwingWorker<Void, String>{
 	public void loop(){
 		try{
 
-			while(!atomic && isCancelled() == false){
+			while(isCancelled() == false){
+				// If we are processing an atomic command, 
+				if(atomic){
+					continue;
+				}
 				if(outQ.peek() != null && out != null){
 					String comm = outQ.peek();
 					out.println(outQ.poll());
