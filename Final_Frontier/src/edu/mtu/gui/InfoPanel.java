@@ -24,7 +24,8 @@ public class InfoPanel extends GuiPanel {
 
 	private JPanel infoPane;
 	private JPanel dirPane, velPane, cBatPane, rBatPane, conStrPane, blankPane;
-	private String dirString, velString, cBatString, rBatString, conStrString;
+	private String dirTitle, velTitle, cBatTitle, rBatTitle, conStrTitle;
+	private String dirVal, velVal, cBatVal, rBatVal, conStrVal;
 
 	/**
 	 * Initialize infoPane
@@ -47,23 +48,28 @@ public class InfoPanel extends GuiPanel {
 		panels.add(blankPane);
 
 		// Initialize JLabels
-		dirString = "Heading (N,S,E,W)";
-		velString = "Current Velocity";
-		cBatString = "Control Systems Battery Life";
-		rBatString = "Rover Battery Life";
-		conStrString = "Connection Strength";
+		dirTitle = "Heading (N,S,E,W)";
+		dirVal = "N"; 
+		velTitle = "Current Velocity (m/s)";
+		velVal = "2.7";
+		cBatTitle = "Control Systems Battery Life (%)";
+		cBatVal = "78";
+		rBatTitle = "Rover Battery Life (%)";
+		rBatVal = "86";
+		conStrTitle = "Connection Strength (poor, fair, good, great)";
+		conStrVal = "Good";
 
 
 		// Initialize sub-panels
-		dirPane = new DisplayPanel(Type.LABEL, dirString);  // Direction panel
+		dirPane = new DisplayPanel(Type.LABEL, dirTitle, dirVal);  // Direction panel
 		
-		velPane = new DisplayPanel(Type.LABEL, velString);  // Velocity panel
+		velPane = new DisplayPanel(Type.LABEL, velTitle, velVal);  // Velocity panel
 
-		cBatPane = new DisplayPanel(Type.LABEL, cBatString);  // Control Battery panel
+		cBatPane = new DisplayPanel(Type.LABEL, cBatTitle, cBatVal);  // Control Battery panel
 
-		rBatPane = new DisplayPanel(Type.LABEL, rBatString);  // Rover Battery panel
+		rBatPane = new DisplayPanel(Type.LABEL, rBatTitle, rBatVal);  // Rover Battery panel
 
-		conStrPane = new DisplayPanel(Type.LABEL, conStrString);  // connection Strength panel
+		conStrPane = new DisplayPanel(Type.LABEL, conStrTitle, conStrVal);  // connection Strength panel
 
 		blankPane = new DisplayPanel();  // Blank spacer panel
 

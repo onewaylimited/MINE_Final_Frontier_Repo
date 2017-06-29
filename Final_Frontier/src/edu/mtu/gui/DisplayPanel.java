@@ -10,6 +10,7 @@ import java.awt.Image;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  * This extended JPanel is intended to display an image
@@ -36,8 +37,10 @@ public class DisplayPanel extends JPanel{
 	
 	private boolean created;
 	private Font labelFont;
+	private Font labelFont2;
 	private Image image;
 	private JLabel label;
+	private JLabel label2;
 	private Type type;
 	private GridBagConstraints gc = new GridBagConstraints();
 	private GridBagLayout layout = new GridBagLayout();
@@ -64,8 +67,30 @@ public class DisplayPanel extends JPanel{
 			imagePanel();
 			break;
 		default:
+			break;		
+		}
+	}
+	
+	/**
+	 * For panels that require 2 labels. 
+	 * @param type
+	 * @param label
+	 * @param label2
+	 */
+	public DisplayPanel(Type type, String label, String label2){
+		this.type = type; 
+		switch(this.type){
+		case LABEL: 
+			doubleLabelPanel(label, label2);
 			break;
-				
+		case BLANK:
+			blankPanel();
+			break;
+		case IMAGE:
+			imagePanel();
+			break;
+		default:
+			break;
 		}
 	}
 	
@@ -96,6 +121,42 @@ public class DisplayPanel extends JPanel{
 		gc.gridx = 0;
 		gc.gridy = 0;
 		this.add(label, gc);
+		
+		repaint();
+	}
+	
+	/**
+	 * Method to create a double label panel
+	 * @param string
+	 * @param string2
+	 */
+	private void doubleLabelPanel(String string, String string2){
+		// Set JPanel layout
+		this.setLayout(layout);
+		
+		// Set font
+		labelFont = new Font("Ariel", Font.BOLD, 14);
+		labelFont2 = new Font("Ariel", Font.BOLD, 24);
+		
+		// Create JLabels
+		label = new JLabel(string);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(labelFont);
+		label2 = new JLabel(string2);
+		label2.setHorizontalAlignment(SwingConstants.CENTER);
+		label2.setFont(labelFont2);
+		
+		// Add components to the panel
+		gc.anchor = GridBagConstraints.CENTER;
+		gc.fill = GridBagConstraints.BOTH;
+		gc.weightx = 0.5;
+		gc.weighty = 0.5;
+		gc.gridx = 0;
+		gc.gridy = 0;
+		this.add(label, gc);
+		gc.gridx = 0;
+		gc.gridy = 1;
+		this.add(label2, gc);
 		
 		repaint();
 	}
